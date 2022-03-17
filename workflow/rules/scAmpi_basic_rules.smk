@@ -6,7 +6,8 @@ rule cellranger_count:
     output:
         features_file = 'results/cellranger_run/{sample}.features.tsv',
         matrix_file = 'results/cellranger_run/{sample}.matrix.mtx',
-        barcodes_file = 'results/cellranger_run/{sample}.barcodes.tsv'
+        barcodes_file = 'results/cellranger_run/{sample}.barcodes.tsv',
+        bam_file = 'results/cellranger_run/{sample}/outs/possorted_genome_bam.bam'
     params:
         cr_out = 'results/cellranger_run/',
         local_cores = config['tools']['cellranger_count']['local_cores'],

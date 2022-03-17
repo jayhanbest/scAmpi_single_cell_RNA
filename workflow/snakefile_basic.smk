@@ -22,6 +22,7 @@ include: "rules/misc_snake.smk"
 # Include rules
 include: "rules/scAmpi_basic_rules.smk"
 include: "rules/scAmpi_clinical_rules.smk"
+include: "rules/velocity_rules_snake.smk"
 
 #outdir = checkpoints.diff_exp_analysis.get(sample = sample_ids).output[0]
 #print(outdir)
@@ -43,27 +44,30 @@ rule scAmpi_basic:
         expand('results/plotting/{sample}.celltype_barplot.png', sample = sample_ids),
         expand('results/gsva/{sample}.gsetscore_hm.png', sample = sample_ids),
         expand('results/diff_exp_analysis/{sample}/', sample = sample_ids),
-        # trigger clinical part of the pipeline
-        expand('results/aggregated/{sample}.aggregated.txt', sample = sample_ids),
-        # plot_drug_prediction is also aggregation rule (as is aggregate)
-        expand('results/plot_drug_prediction/{sample}.drug_prediction_umap.png', sample = sample_ids),
-        # plot gene set enrichment heatmap (is also aggregation rule)
-        expand('results/gene_set_enrichment/{sample}.heatmap_enrichment.png', sample = sample_ids),
-        expand('results/gene_set_enrichment/vs_other_malignant/{sample}.DEmalignant.heatmap_enrichment.png', sample = sample_ids),
-        # parse_for_minSetCover (is also aggregation rule)
-        expand('results/drug_combination/{sample}.drugToCluster.allDrugs.txt', sample = sample_ids),
-        expand('results/drug_combination/{sample}.drugToCluster.filteredDrugs.txt', sample = sample_ids),
-        # preprocess for upsetR plot
-        expand('results/upsetr_plot/{sample}.drugToCluster.allDrugs.processedForUpSetR.txt', sample = sample_ids),
-        expand('results/upsetr_plot/{sample}.drugToCluster.filteredDrugs.processedForUpSetR.txt', sample = sample_ids),
-        # plot upset plot
-        expand('results/upsetr_plot/{sample}.drugToCluster.allDrugs.vennplot.png', sample = sample_ids),
-        expand('results/upsetr_plot/{sample}.drugToCluster.filteredDrugs.vennplot.png', sample = sample_ids),
-        # find minSetCover
-        expand('results/drug_combination/{sample}.drugCombination.allDrugs.txt', sample = sample_ids),
-        expand('results/drug_combination/{sample}.drugCombination.filteredDrugs.txt', sample = sample_ids),
-        # druglist_to_subclones
-        expand('results/drug_combination/{sample}.full_druglist_to_subclones.txt', sample = sample_ids),
+#        # trigger clinical part of the pipeline
+#        expand('results/aggregated/{sample}.aggregated.txt', sample = sample_ids),
+#        # plot_drug_prediction is also aggregation rule (as is aggregate)
+#        expand('results/plot_drug_prediction/{sample}.drug_prediction_umap.png', sample = sample_ids),
+#        # plot gene set enrichment heatmap (is also aggregation rule)
+#        expand('results/gene_set_enrichment/{sample}.heatmap_enrichment.png', sample = sample_ids),
+#        expand('results/gene_set_enrichment/vs_other_malignant/{sample}.DEmalignant.heatmap_enrichment.png', sample = sample_ids),
+#        # parse_for_minSetCover (is also aggregation rule)
+#        expand('results/drug_combination/{sample}.drugToCluster.allDrugs.txt', sample = sample_ids),
+#        expand('results/drug_combination/{sample}.drugToCluster.filteredDrugs.txt', sample = sample_ids),
+#        # preprocess for upsetR plot
+#        expand('results/upsetr_plot/{sample}.drugToCluster.allDrugs.processedForUpSetR.txt', sample = sample_ids),
+#        expand('results/upsetr_plot/{sample}.drugToCluster.filteredDrugs.processedForUpSetR.txt', sample = sample_ids),
+#        # plot upset plot
+#        expand('results/upsetr_plot/{sample}.drugToCluster.allDrugs.vennplot.png', sample = sample_ids),
+#        expand('results/upsetr_plot/{sample}.drugToCluster.filteredDrugs.vennplot.png', sample = sample_ids),
+#        # find minSetCover
+#        expand('results/drug_combination/{sample}.drugCombination.allDrugs.txt', sample = sample_ids),
+#        expand('results/drug_combination/{sample}.drugCombination.filteredDrugs.txt', sample = sample_ids),
+#        # druglist_to_subclones
+#        expand('results/drug_combination/{sample}.full_druglist_to_subclones.txt', sample = sample_ids),
+#        # velocity analysis (2 steps)
+        expand('results/velocity/velocyto/{sample}/{sample}.loom', sample = sample_ids),
+#        expand('results/velocity/{sample}/{sample}.velocity_success.txt', sample = sample_ids),
     output:
         'results/complete_scAmpi_basic.txt'
     params:

@@ -4,7 +4,7 @@ inputOutput:
   sample_map: testdata/sample_map_testdata.tsv
   malignant_cell_type: "none"
 
-resources:
+reference_transcriptome:
   # cellranger
   # The following needs to point to the reference transcriptome that will be used by cellranger.
   reference_transcriptome: "refdata-gex-GRCh38-2020-A/"
